@@ -23,6 +23,9 @@ test('encrypt', () => {
   expect(encrypt('hi pie', 'b')).toStrictEqual('IJ QJF');
   expect(encrypt('hi pie', 'ab')).toStrictEqual('HJ PJE');
   expect(encrypt('HI PIE', 'AB')).toStrictEqual('HJ PJE');
+
+  expect(encrypt('z', 'a')).toStrictEqual('Z');
+  expect(encrypt('z', 'b')).toStrictEqual('A');
 });
 
 test('decrypt', () => {
@@ -31,4 +34,7 @@ test('decrypt', () => {
   expect(decrypt('IJ QJF', 'b')).toStrictEqual('HI PIE');
   expect(decrypt('HJ PJE', 'ab')).toStrictEqual('HI PIE');
   expect(decrypt('HJ PJE', 'AB')).toStrictEqual('HI PIE');
+
+  expect(decrypt('Z', 'a')).toStrictEqual('Z');
+  expect(decrypt('A', 'b')).toStrictEqual('Z');
 });

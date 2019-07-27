@@ -22,8 +22,8 @@ export function encrypt(text: string, raw_key: string): string  {
     }
 
     const keyChar = key.charCodeAt((ind - spacesEncountered) % key.length);
-    const valChar = val.charCodeAt(0);
-    return String.fromCharCode(valChar + (keyChar - aCharCode));
+    const c = (val.charCodeAt(0) + keyChar) % 26;
+    return String.fromCharCode(aCharCode + c);
   }).join('');
 }
 
@@ -37,8 +37,8 @@ export function decrypt(ciphertext: string, raw_key: string): string {
       return ' ';
     }
 
-    const car = key.charCodeAt((ind - spacesEncountered) % key.length);
-    const c = (val.charCodeAt(0) - car + 26) % 26;
+    const keyChar = key.charCodeAt((ind - spacesEncountered) % key.length);
+    const c = (val.charCodeAt(0) - keyChar + 26) % 26;
     return String.fromCharCode(aCharCode + c);
   }).join('');
 }
