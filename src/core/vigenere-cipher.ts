@@ -2,7 +2,7 @@ const aCharCode = 65;
 
 // Zip two arrays together to form an array of two element tuples
 export function zip<T1, T2>(a: T1[], b: T2[]): [T1, T2][] {
-    return a.map((x, i) => [x, b[i]]);
+  return a.map((x, i) => [x, b[i]]);
 }
 
 // Rotate array element a given number of spots to the right
@@ -12,40 +12,48 @@ export function rotate<T>(arr: T[], spots: number): T[] {
 }
 
 // Perform the vigenere cipher on given plaintext with a key
-export function encrypt(text: string, raw_key: string): string  {
+export function encrypt(text: string, raw_key: string): string {
   const key = raw_key.toUpperCase();
   let spacesEncountered = 0;
-  return text.toUpperCase().split('').map((val, ind) => {
-    if (val === ' ') {
-      spacesEncountered += 1;
-      return ' ';
-    }
+  return text
+    .toUpperCase()
+    .split("")
+    .map((val, ind) => {
+      if (val === " ") {
+        spacesEncountered += 1;
+        return " ";
+      }
 
-    const keyChar = key.charCodeAt((ind - spacesEncountered) % key.length);
-    const c = (val.charCodeAt(0) + keyChar) % 26;
-    return String.fromCharCode(aCharCode + c);
-  }).join('');
+      const keyChar = key.charCodeAt((ind - spacesEncountered) % key.length);
+      const c = (val.charCodeAt(0) + keyChar) % 26;
+      return String.fromCharCode(aCharCode + c);
+    })
+    .join("");
 }
 
 // Decrypt vigenere ciphertext with a given key
 export function decrypt(ciphertext: string, raw_key: string): string {
   const key = raw_key.toUpperCase();
   let spacesEncountered = 0;
-  return ciphertext.toUpperCase().split('').map((val, ind) => {
-    if (val === ' ') {
-      spacesEncountered += 1;
-      return ' ';
-    }
+  return ciphertext
+    .toUpperCase()
+    .split("")
+    .map((val, ind) => {
+      if (val === " ") {
+        spacesEncountered += 1;
+        return " ";
+      }
 
-    const keyChar = key.charCodeAt((ind - spacesEncountered) % key.length);
-    const c = (val.charCodeAt(0) - keyChar + 26) % 26;
-    return String.fromCharCode(aCharCode + c);
-  }).join('');
+      const keyChar = key.charCodeAt((ind - spacesEncountered) % key.length);
+      const c = (val.charCodeAt(0) - keyChar + 26) % 26;
+      return String.fromCharCode(aCharCode + c);
+    })
+    .join("");
 }
 
 function crackCipher(raw_text: string, maxKeyLength: number): string {
   let i;
-  const text = raw_text.replace(/\s/g, '');
+  const text = raw_text.replace(/\s/g, "");
   const keyLength = getKeyLength(text, maxKeyLength);
   const key = [];
 
@@ -57,7 +65,7 @@ function crackCipher(raw_text: string, maxKeyLength: number): string {
     key.push(crackCaesar(filteredText));
   }
 
-  return key.join('');
+  return key.join("");
 }
 
 function crackCaesar(caesar: string[]) {
@@ -111,22 +119,24 @@ function crackCaesar(caesar: string[]) {
     evals[x] = res;
   }
 
-  return String.fromCharCode(26 - evals.lastIndexOf(Math.min(...evals)) + aCharCode);
+  return String.fromCharCode(
+    26 - evals.lastIndexOf(Math.min(...evals)) + aCharCode
+  );
 }
 
 function getKeyLength(text: string, maxKeyLength: number): number {
   const kap = 0.0667;
-  const props = 
-    getMatches(text, maxKeyLength).map(
-        val => (kap - val / text.length) ** 2
-      );
+  const props = getMatches(text, maxKeyLength).map(
+    val => (kap - val / text.length) ** 2
+  );
   return props.indexOf(Math.min(...props)) + 1;
 }
 
 function getMatches(text: string, maxKeyLength: number): number[] {
-  const equalPair = (memo: number, val: string[]) => memo + (val[0] === val[1] ? 1 : 0);
+  const equalPair = (memo: number, val: string[]) =>
+    memo + (val[0] === val[1] ? 1 : 0);
   const keys = [];
-  const chars = text.split('');
+  const chars = text.split("");
   for (let i = 1; i <= maxKeyLength; i++) {
     const rot = rotate(chars, i);
     const matches = zip(chars, rot).reduce(equalPair, 0);
