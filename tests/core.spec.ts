@@ -1,4 +1,4 @@
-import { rotate, encrypt, zip } from "../src/core/vigenere-cipher";
+import { rotate, encrypt, decrypt, zip } from "../src/core/vigenere-cipher";
 
 test('zip', () => {
   expect(zip(['a'], ['b'])).toStrictEqual([['a', 'b']]);
@@ -23,4 +23,12 @@ test('encrypt', () => {
   expect(encrypt('hi pie', 'b')).toStrictEqual('IJ QJF');
   expect(encrypt('hi pie', 'ab')).toStrictEqual('HJ PJE');
   expect(encrypt('HI PIE', 'AB')).toStrictEqual('HJ PJE');
+});
+
+test('decrypt', () => {
+  expect(decrypt('HI', 'a')).toStrictEqual('HI');
+  expect(decrypt('HI PIE', 'a')).toStrictEqual('HI PIE');
+  expect(decrypt('IJ QJF', 'b')).toStrictEqual('HI PIE');
+  expect(decrypt('HJ PJE', 'ab')).toStrictEqual('HI PIE');
+  expect(decrypt('HJ PJE', 'AB')).toStrictEqual('HI PIE');
 });

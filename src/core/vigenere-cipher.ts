@@ -27,7 +27,8 @@ export function encrypt(text: string, raw_key: string): string  {
   }).join('');
 }
 
-function decrypt(ciphertext: string, raw_key: string): string {
+// Decrypt vigenere ciphertext with a given key
+export function decrypt(ciphertext: string, raw_key: string): string {
   const key = raw_key.toUpperCase();
   let spacesEncountered = 0;
   return ciphertext.toUpperCase().split('').map((val, ind) => {
