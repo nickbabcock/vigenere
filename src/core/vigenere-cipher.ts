@@ -1,4 +1,6 @@
-const aCharCode = 65;
+const aCharCode = 'A'.charCodeAt(0);
+const zCharCode = 'Z'.charCodeAt(0);
+
 
 // Zip two arrays together to form an array of two element tuples
 export function zip<T1, T2>(a: T1[], b: T2[]): [T1, T2][] {
@@ -51,96 +53,103 @@ export function decrypt(ciphertext: string, raw_key: string): string {
     .join("");
 }
 
-function crackCipher(raw_text: string, maxKeyLength: number): string {
-  let i;
-  const text = raw_text.replace(/\s/g, "");
-  const keyLength = getKeyLength(text, maxKeyLength);
-  const key = [];
-
-  for (i = 0; i < keyLength; i++) {
-    const filteredText = [];
-    for (let j = i; j < text.length; j += keyLength) {
-      filteredText.push(text[j]);
-    }
-    key.push(crackCaesar(filteredText));
+// Split the ciperhtext into a given number of groups with the letters
+// distributed uniformly in a sequential and round-robin fashion
+export function cosets(text: string, num: number): string[][] {
+  const result: string[][] = new Array(num).fill(0).map(() => []);
+  const chars = text.split('');
+  for (let i = 0; i < chars.length; i++) {
+    result[i % num].push(chars[i]);
   }
 
-  return key.join("");
+  return result;
 }
 
-function crackCaesar(caesar: string[]) {
-  const freq: Record<string, number> = {
-    A: 8.167,
-    B: 1.492,
-    C: 2.782,
-    D: 4.253,
-    E: 12.702,
-    F: 2.228,
-    G: 2.015,
-    H: 6.094,
-    I: 6.996,
-    J: 0.153,
-    K: 0.772,
-    L: 4.025,
-    M: 2.406,
-    N: 6.749,
-    O: 7.507,
-    P: 1.929,
-    Q: 0.095,
-    R: 5.987,
-    S: 6.327,
-    T: 9.056,
-    U: 2.758,
-    V: 0.978,
-    W: 2.36,
-    X: 0.15,
-    Y: 1.974,
-    Z: 0.074
-  };
-
-  let evals = new Array(26);
-  for (let x = 0; x < evals.length; x++) {
-    let i;
-    const shift = [];
-    for (i = 0; i < caesar.length; i++) {
-      const car = (caesar[i].charCodeAt(0) % aCharCode) + x;
-      shift.push(String.fromCharCode((car % 26) + aCharCode));
-    }
-
-    const groups: Record<string, number> = {};
-    for (i = 0; i < shift.length; i++) {
-      groups[shift[i]] = (groups[shift[i]] || 0) + 1;
-    }
-
-    const res = Object.entries(freq)
-      .map(val => (freq[val[0]] - (val[1] * 100) / caesar.length) ** 2)
-      .reduce((memo, num) => memo + num, 0);
-
-    evals[x] = res;
+// Frequency count of a coset
+function frequencyCount(coset: string[]): number[] {
+  const counts = new Array(26).fill(0);
+  for (let letter of coset) {
+    counts[letter.charCodeAt(0) - aCharCode] += 1
   }
-
-  return String.fromCharCode(
-    26 - evals.lastIndexOf(Math.min(...evals)) + aCharCode
-  );
+  return counts;
 }
 
-function getKeyLength(text: string, maxKeyLength: number): number {
-  const kap = 0.0667;
-  const props = getMatches(text, maxKeyLength).map(
-    val => (kap - val / text.length) ** 2
-  );
-  return props.indexOf(Math.min(...props)) + 1;
+// Index of coincidence for a coset
+export function coincidenceIndex(coset: string[]): number {
+  const fc = frequencyCount(coset); 
+  const sum = fc.map(x => x * (x - 1)).reduce((acc, x) => acc + x);
+  return sum / (coset.length * (coset.length - 1))
 }
 
-function getMatches(text: string, maxKeyLength: number): number[] {
-  const equalPair = (memo: number, val: string[]) =>
-    memo + (val[0] === val[1] ? 1 : 0);
-  const keys = [];
-  const chars = text.split("");
-  for (let i = 1; i <= maxKeyLength; i++) {
-    const rot = rotate(chars, i);
-    const matches = zip(chars, rot).reduce(equalPair, 0);
-    keys.push(matches);
-  }
-  return keys;
+// Give an estimate of a potential key length of a cipher text. The algorithm
+// works by finding which coset length has the greatest index of coincidence.
+export function estimateKeyLength(cipherText: string, maxLen: number): number {
+  const indices = new Array(maxLen).fill(0)
+    .map((x, i) => {
+      const cis = cosets(cipherText, i + 1).map(x => coincidenceIndex(x));
+      return cis.reduce((a, b) => a + b, 0) / cis.length;
+    })
+
+  return indices.indexOf(Math.max(...indices)) + 1;
+}
+
+// Computes the shift of a coset by finding the smallest chi-squared test
+// against the actual frequency of letters in the english alphabet.
+// Reference: https://pages.mtu.edu/~shene/NSF-4/Tutorial/VIG/Vig-Recover.html
+export function cosetShift(coset: string[]): number {
+  const freq = [
+    0.08167, // A
+    0.01492, // B
+    0.02782,
+    0.04253,
+    0.12702,
+    0.02228,
+    0.02015,
+    0.06094,
+    0.06996,
+    0.00153,
+    0.00772,
+    0.04025,
+    0.02406,
+    0.06749,
+    0.07507,
+    0.01929,
+    0.00095,
+    0.05987,
+    0.06327,
+    0.09056,
+    0.02758,
+    0.00978,
+    0.0236,
+    0.0015,
+    0.01974,
+    0.00074
+  ];
+
+  const chi = new Array(26)
+    .fill(0)
+    .map((_, i) => {
+        const shift = coset
+            .map(x => x.charCodeAt(0) - i)
+            .map(x => zCharCode - ((zCharCode - x) % 26))
+            .map(x => String.fromCharCode(x));
+        const fc = frequencyCount(shift);
+        return fc.map((x, i) => (((x / coset.length) - freq[i]) ** 2) / freq[i])
+          .reduce((acc, x) => acc + x);
+    });
+
+  return chi.indexOf(Math.min(...chi));
+}
+
+interface VigenereRecovery {
+  key: string;
+  plainText: string;
+}
+
+export function recoverVigenere(cipherText: string, maxKeyLen: number): VigenereRecovery {
+  const keyLen = estimateKeyLength(cipherText, maxKeyLen);
+  const coset = cosets(cipherText, keyLen);
+  const key = coset.map(x => cosetShift(x)).map(x => String.fromCharCode(aCharCode + x)).join('');
+  const plainText = decrypt(cipherText, key);
+  return { key, plainText };
 }
