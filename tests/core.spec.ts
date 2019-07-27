@@ -22,4 +22,5 @@ test('encrypt', () => {
   expect(encrypt('hi pie', 'a')).toStrictEqual('HI PIE');
   expect(encrypt('hi pie', 'b')).toStrictEqual('IJ QJF');
   expect(encrypt('hi pie', 'ab')).toStrictEqual('HJ PJE');
+  expect(encrypt('HI PIE', 'AB')).toStrictEqual('HJ PJE');
 });
