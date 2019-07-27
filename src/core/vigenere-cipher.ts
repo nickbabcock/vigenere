@@ -1,14 +1,18 @@
 const aCharCode = 65;
 
-function zip<T1, T2>(a: T1[], b: T2[]) {
+// Zip two arrays together to form an array of two element tuples
+export function zip<T1, T2>(a: T1[], b: T2[]): [T1, T2][] {
     return a.map((x, i) => [x, b[i]]);
 }
 
-function rotate<T>(arr: T[], spots: number): T[] {
-  return arr.slice(spots, arr.length).concat(arr.slice(0, spots));
+// Rotate array element a given number of spots to the right
+export function rotate<T>(arr: T[], spots: number): T[] {
+  let rot = spots % arr.length;
+  return arr.slice(rot, arr.length).concat(arr.slice(0, rot));
 }
 
-function encrypt(text: string, raw_key: string): string  {
+// Perform the vigenere cipher on given plaintext with a key
+export function encrypt(text: string, raw_key: string): string  {
   const key = raw_key.toUpperCase();
   let spacesEncountered = 0;
   return text.toUpperCase().split('').map((val, ind) => {
@@ -23,10 +27,10 @@ function encrypt(text: string, raw_key: string): string  {
   }).join('');
 }
 
-function decrypt(text: string, raw_key: string): string {
+function decrypt(ciphertext: string, raw_key: string): string {
   const key = raw_key.toUpperCase();
   let spacesEncountered = 0;
-  return text.toUpperCase().split('').map((val, ind) => {
+  return ciphertext.toUpperCase().split('').map((val, ind) => {
     if (val === ' ') {
       spacesEncountered += 1;
       return ' ';
@@ -129,5 +133,3 @@ function getMatches(text: string, maxKeyLength: number): number[] {
   }
   return keys;
 }
-
-export { encrypt, decrypt, crackCipher };
