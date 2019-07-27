@@ -1,3 +1,4 @@
+import * as fc from 'fast-check';
 import { rotate, encrypt, decrypt, zip } from "../src/core/vigenere-cipher";
 
 test('zip', () => {
@@ -37,4 +38,15 @@ test('decrypt', () => {
 
   expect(decrypt('Z', 'a')).toStrictEqual('Z');
   expect(decrypt('A', 'b')).toStrictEqual('Z');
+});
+
+test('encrypt and decrypt roundtrip', () => {
+  fc.assert(
+    fc.property(fc.lorem(), fc.lorem(), (plain, key) => {
+      const l = plain.toUpperCase();
+      const cipher = encrypt(l, key);
+      const round = decrypt(cipher, key);
+      expect(round).toEqual(l);
+    })
+  );
 });
