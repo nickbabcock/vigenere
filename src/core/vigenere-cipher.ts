@@ -147,8 +147,9 @@ export function recoverVigenere(
   cipherText: string,
   maxKeyLen: number
 ): VigenereRecovery {
-  const keyLen = estimateKeyLength(cipherText, maxKeyLen);
-  const coset = cosets(cipherText, keyLen);
+  const slim = cipherText.replace(/[^A-Za-z]/g, '');
+  const keyLen = estimateKeyLength(slim, maxKeyLen);
+  const coset = cosets(slim, keyLen);
   const key = coset
     .map(x => cosetShift(x))
     .map(x => String.fromCharCode(aCharCode + x))
