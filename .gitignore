@@ -1,5 +1,6 @@
 src/core/*.js
 public/bundle.*
+public/styles*
 .rpt2_cache/
 
 # Created by https://www.gitignore.io/api/node
