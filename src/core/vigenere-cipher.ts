@@ -138,7 +138,7 @@ export function cosetShift(coset: string[]): number {
   return chi.indexOf(Math.min(...chi));
 }
 
-interface VigenereRecovery {
+export interface VigenereRecovery {
   key: string;
   plainText: string;
 }
