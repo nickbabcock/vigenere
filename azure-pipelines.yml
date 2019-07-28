@@ -1,0 +1,9 @@
+pool:
+  vmImage: 'ubuntu-16.04'
+steps:
+  - script: npm ci
+    displayName: Npm Install
+  - script: npm run build
+    displayName: Build
+  - script: npm test
+    displayName: Test
