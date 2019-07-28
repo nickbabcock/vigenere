@@ -4,11 +4,10 @@ FROM node
 RUN apt-get update && apt-get install -y zopfli && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/vigenere
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
-
-RUN set -eux; \
-  npm ci && \
-  ./build.sh && \
+RUN ./build.sh && \
   zopfli public/*.js public/*.css public/*.html
 
 FROM nginx:stable-alpine
