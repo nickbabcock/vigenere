@@ -1,5 +1,6 @@
 const aCharCode = "A".charCodeAt(0);
 const zCharCode = "Z".charCodeAt(0);
+const asciiAlpha = /[A-Za-z]/;
 
 // Zip two arrays together to form an array of two element tuples
 export function zip<T1, T2>(a: T1[], b: T2[]): [T1, T2][] {
@@ -15,17 +16,17 @@ export function rotate<T>(arr: T[], spots: number): T[] {
 // Perform the vigenere cipher on given plaintext with a key
 export function encrypt(text: string, raw_key: string): string {
   const key = raw_key.toUpperCase();
-  let spacesEncountered = 0;
+  let skipSpaces = 0;
   return text
     .toUpperCase()
     .split("")
     .map((val, ind) => {
-      if (val === " ") {
-        spacesEncountered += 1;
-        return " ";
+      if (!asciiAlpha.test(val)) {
+        skipSpaces += 1;
+        return val;
       }
 
-      const keyChar = key.charCodeAt((ind - spacesEncountered) % key.length);
+      const keyChar = key.charCodeAt((ind - skipSpaces) % key.length);
       const c = (val.charCodeAt(0) + keyChar) % 26;
       return String.fromCharCode(aCharCode + c);
     })
@@ -35,17 +36,17 @@ export function encrypt(text: string, raw_key: string): string {
 // Decrypt vigenere ciphertext with a given key
 export function decrypt(ciphertext: string, raw_key: string): string {
   const key = raw_key.toUpperCase();
-  let spacesEncountered = 0;
+  let skipSpaces = 0;
   return ciphertext
     .toUpperCase()
     .split("")
     .map((val, ind) => {
-      if (val === " ") {
-        spacesEncountered += 1;
-        return " ";
+      if (!asciiAlpha.test(val)) {
+        skipSpaces += 1;
+        return val;
       }
 
-      const keyChar = key.charCodeAt((ind - spacesEncountered) % key.length);
+      const keyChar = key.charCodeAt((ind - skipSpaces) % key.length);
       const c = (val.charCodeAt(0) - keyChar + 26) % 26;
       return String.fromCharCode(aCharCode + c);
     })

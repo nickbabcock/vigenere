@@ -37,6 +37,9 @@ test("encrypt", () => {
 
   expect(encrypt("z", "a")).toStrictEqual("Z");
   expect(encrypt("z", "b")).toStrictEqual("A");
+
+  expect(encrypt("hello world i am code", "abc")).toStrictEqual("HFNLP YOSND J CM DQDF");
+  expect(encrypt("hello world. i am code.", "abc")).toStrictEqual("HFNLP YOSND. J CM DQDF.");
 });
 
 test("decrypt", () => {
@@ -48,6 +51,8 @@ test("decrypt", () => {
 
   expect(decrypt("Z", "a")).toStrictEqual("Z");
   expect(decrypt("A", "b")).toStrictEqual("Z");
+
+  expect(decrypt("HFNLP YOSND. J CM DQDF.", "abc")).toStrictEqual("HELLO WORLD. I AM CODE.");
 });
 
 test("cosets", () => {
