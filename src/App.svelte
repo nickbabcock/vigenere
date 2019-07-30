@@ -24,9 +24,9 @@
 
 <table>
   <tr>
-    <td>Cryptographic mode:</td>
+    <td><label for="cryptMode">Cryptographic mode:</label></td>
     <td>
-      <select bind:value={selectedMode} on:change={resetMode}>
+      <select id="cryptMode" bind:value={selectedMode} on:change={resetMode}>
         {#each cryptModes as mode}
           <option value={mode}>
             {mode.title}
@@ -36,15 +36,18 @@
     </td>
   </tr>
   <tr>
-    <td>{selectedMode.valueLabel}</td>
+    <td><label for="valueText">{selectedMode.valueLabel}</label></td>
     <td>
-      <input bind:value={valueText}/>
+      <input id="valueText" bind:value={valueText}/>
     </td>
   </tr>
 </table>
 
 <div>
-  <textarea placeholder="input text here" bind:value={cipherInput}/>
+  <label>
+    Plain / Cipher text
+    <textarea bind:value={cipherInput}/>
+  </label>
 </div>
 
 {#if selectedMode == cryptModes[2] && cipherOutput && cipherOutput.key}
