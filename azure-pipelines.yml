@@ -7,3 +7,5 @@ steps:
     displayName: Build
   - script: npm test
     displayName: Test
+  - script: ./cypress-test.sh
+    displayName: e2e cypress testing
