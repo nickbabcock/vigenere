@@ -1,5 +1,5 @@
 <script>
-  import { encrypt, decrypt, recoverVigenere } from './core/vigenere-cipher';
+  import { encrypt, decrypt, recoverVigenere } from './core/vigenere-cipher.ts';
 
   let cryptModes = [
     { title: 'Encryption', fn: encrypt, valueLabel: 'Cipher Key' },
