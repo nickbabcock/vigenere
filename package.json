@@ -27,7 +27,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-svelte": "^5.1.0",
     "rollup-plugin-terser": "^5.1.1",
-    "rollup-plugin-typescript2": "^0.25.1",
+    "rollup-plugin-typescript2": "^0.26.0",
     "svelte": "^3.6.9",
     "ts-jest": "^25.2.0",
     "typescript": "^3.5.3"
