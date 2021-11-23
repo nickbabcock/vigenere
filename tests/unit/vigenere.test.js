@@ -1,5 +1,4 @@
-import * as fc from "fast-check";
-import {
+const {
   coincidenceIndex,
   cosetShift,
   cosets,
@@ -8,13 +7,16 @@ import {
   rotate,
   encrypt,
   decrypt,
-  zip
-} from "../src/core/vigenere-cipher";
+  zip,
+} = require("../../dist/vigenere-cipher");
 
 test("zip", () => {
   expect(zip(["a"], ["b"])).toStrictEqual([["a", "b"]]);
   expect(zip(["a"], [1])).toStrictEqual([["a", 1]]);
-  expect(zip(["a", "b"], [1, 2])).toStrictEqual([["a", 1], ["b", 2]]);
+  expect(zip(["a", "b"], [1, 2])).toStrictEqual([
+    ["a", 1],
+    ["b", 2],
+  ]);
 });
 
 test("rotate", () => {
@@ -38,8 +40,12 @@ test("encrypt", () => {
   expect(encrypt("z", "a")).toStrictEqual("Z");
   expect(encrypt("z", "b")).toStrictEqual("A");
 
-  expect(encrypt("hello world i am code", "abc")).toStrictEqual("HFNLP YOSND J CM DQDF");
-  expect(encrypt("hello world. i am code.", "abc")).toStrictEqual("HFNLP YOSND. J CM DQDF.");
+  expect(encrypt("hello world i am code", "abc")).toStrictEqual(
+    "HFNLP YOSND J CM DQDF"
+  );
+  expect(encrypt("hello world. i am code.", "abc")).toStrictEqual(
+    "HFNLP YOSND. J CM DQDF."
+  );
 });
 
 test("decrypt", () => {
@@ -52,18 +58,20 @@ test("decrypt", () => {
   expect(decrypt("Z", "a")).toStrictEqual("Z");
   expect(decrypt("A", "b")).toStrictEqual("Z");
 
-  expect(decrypt("HFNLP YOSND. J CM DQDF.", "abc")).toStrictEqual("HELLO WORLD. I AM CODE.");
+  expect(decrypt("HFNLP YOSND. J CM DQDF.", "abc")).toStrictEqual(
+    "HELLO WORLD. I AM CODE."
+  );
 });
 
 test("cosets", () => {
   expect(cosets("RSTCSJLSLRSLFELGWLFIISIKRMGL", 3)).toStrictEqual([
     "RCLRFGFSRL".split(""),
     "SSSSEWIIM".split(""),
-    "TJLLLLIKG".split("")
+    "TJLLLLIKG".split(""),
   ]);
 
   expect(cosets("RSTCSJLSLRSLFELGWLFIISIKRMGL", 1)).toStrictEqual([
-    "RSTCSJLSLRSLFELGWLFIISIKRMGL".split("")
+    "RSTCSJLSLRSLFELGWLFIISIKRMGL".split(""),
   ]);
 });
 
@@ -99,17 +107,6 @@ test("recoverVigenere", () => {
   ).toStrictEqual({
     key: "AMBROISETHOMAS",
     plainText:
-      "DO YOU KNOW THE LAND WHERE THE ORANGE TREE BLOSSOMSTHECOUNTRYOFGOLDENFRUITSANDMARVELOUSROSESWHERETHEBREEZEISSOFTERANDBIRDSLIGHTERWHEREBEESGATHERPOLLENINEVERYSEASONANDWHERESHINESANDSMILESLIKEAGIFTFROMGODANETERNALSPRINGTIMEUNDERANEVERBLUESKYALASBUTICANNOTFOLLOWYOUTOTHATHAPPYSHOREFROMWHICHFATEHASEXILEDMETHEREITISTHERETHATISHOULDLIKETOLIVETOLOVETOLOVEANDTODIEITISTHERETHATISHOULDLIKETOLIVEITISTHEREYESTHERE"
+      "DO YOU KNOW THE LAND WHERE THE ORANGE TREE BLOSSOMSTHECOUNTRYOFGOLDENFRUITSANDMARVELOUSROSESWHERETHEBREEZEISSOFTERANDBIRDSLIGHTERWHEREBEESGATHERPOLLENINEVERYSEASONANDWHERESHINESANDSMILESLIKEAGIFTFROMGODANETERNALSPRINGTIMEUNDERANEVERBLUESKYALASBUTICANNOTFOLLOWYOUTOTHATHAPPYSHOREFROMWHICHFATEHASEXILEDMETHEREITISTHERETHATISHOULDLIKETOLIVETOLOVETOLOVEANDTODIEITISTHERETHATISHOULDLIKETOLIVEITISTHEREYESTHERE",
   });
-});
-
-test("encrypt and decrypt roundtrip", () => {
-  fc.assert(
-    fc.property(fc.lorem(), fc.lorem(), (plain, key) => {
-      const l = plain.toUpperCase();
-      const cipher = encrypt(l, key);
-      const round = decrypt(cipher, key);
-      expect(round).toEqual(l);
-    })
-  );
 });
