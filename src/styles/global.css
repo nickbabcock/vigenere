@@ -1,10 +1,21 @@
 @media (prefers-color-scheme: dark) {
+  :root {
+    --background-clr-h: 0;
+    --background-clr-s: 0%;
+    --background-clr-l: 7%;
+    --background-clr: hsl(
+      var(--background-clr-h),
+      var(--background-clr-s),
+      var(--background-clr-l)
+    );
+    --foreground-clr: hsl(0, 0%, 100%);
+  }
 
   /* Remove once supported by firefox */
   @supports not (color-scheme: dark) {
-    * {
-      background-color: #121212;
-      color: white;
+    html {
+      background-color: var(--background-clr);
+      color: var(--foreground-clr);
     }
 
     a {
@@ -18,7 +29,10 @@
 
   /* Remove once chromium browsers stop filling option background as white */
   option {
-    color-scheme: dark;
-    background-color: #333;
+    background-color: hsl(
+      var(--background-clr-h),
+      var(--background-clr-s),
+      calc(var(--background-clr-l) + 15%)
+    );
   }
 }
