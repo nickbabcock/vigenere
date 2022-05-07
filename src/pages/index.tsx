@@ -12,7 +12,7 @@ const Home: NextPage = () => {
           name="description"
           content="Online encryption, decryption, and recovery of ciphertext with vigenere / caesar ciphers using frequency analysis"
         />
-        <meta name="color-scheme" content="dark light"/>
+        <meta name="color-scheme" content="dark light" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -38,7 +38,7 @@ const Home: NextPage = () => {
         Any code suggestions or issues can be{" "}
         <a href="https://github.com/nickbabcock/vigenere">raised on Github</a>
       </p>
-      <Cipher/>
+      <Cipher />
     </div>
   );
 };

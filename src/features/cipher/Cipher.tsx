@@ -13,7 +13,7 @@ const keyText = (mode: Crypt["kind"]) => {
   }
 };
 
-export const Cipher: React.FC<{}> = () => {
+export const Cipher = () => {
   const [mode, setMode] = useState<Crypt["kind"]>("Encryption");
   const [key, setKey] = useState<string>("");
   const [input, setInput] = useState<string>("");

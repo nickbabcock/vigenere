@@ -6,7 +6,7 @@ import "sanitize.css/system-ui.css";
 import "../styles/global.css";
 import type { AppProps } from "next/app";
 
-const VigenereApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+const VigenereApp = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />;
 };
 

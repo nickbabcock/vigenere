@@ -77,7 +77,7 @@ function frequencyCount(coset: string[]): number[] {
 // Index of coincidence for a coset
 export function coincidenceIndex(coset: string[]): number {
   const fc = frequencyCount(coset);
-  const sum = fc.map(x => x * (x - 1)).reduce((acc, x) => acc + x);
+  const sum = fc.map((x) => x * (x - 1)).reduce((acc, x) => acc + x);
   return sum / (coset.length * (coset.length - 1));
 }
 
@@ -85,7 +85,7 @@ export function coincidenceIndex(coset: string[]): number {
 // works by finding which coset length has the greatest index of coincidence.
 export function estimateKeyLength(cipherText: string, maxLen: number): number {
   const indices = new Array(maxLen).fill(0).map((x, i) => {
-    const cis = cosets(cipherText, i + 1).map(x => coincidenceIndex(x));
+    const cis = cosets(cipherText, i + 1).map((x) => coincidenceIndex(x));
     return cis.reduce((a, b) => a + b, 0) / cis.length;
   });
 
@@ -122,14 +122,14 @@ export function cosetShift(coset: string[]): number {
     0.0236,
     0.0015,
     0.01974,
-    0.00074
+    0.00074,
   ];
 
   const chi = new Array(26).fill(0).map((_, i) => {
     const shift = coset
-      .map(x => x.charCodeAt(0) - i)
-      .map(x => zCharCode - ((zCharCode - x) % 26))
-      .map(x => String.fromCharCode(x));
+      .map((x) => x.charCodeAt(0) - i)
+      .map((x) => zCharCode - ((zCharCode - x) % 26))
+      .map((x) => String.fromCharCode(x));
     const fc = frequencyCount(shift);
     return fc
       .map((x, i) => (x / coset.length - freq[i]) ** 2 / freq[i])
@@ -148,12 +148,12 @@ export function recoverVigenere(
   cipherText: string,
   maxKeyLen: number
 ): VigenereRecovery {
-  const slim = cipherText.replace(/[^A-Za-z]/g, '');
+  const slim = cipherText.replace(/[^A-Za-z]/g, "");
   const keyLen = estimateKeyLength(slim, maxKeyLen);
   const coset = cosets(slim, keyLen);
   const key = coset
-    .map(x => cosetShift(x))
-    .map(x => String.fromCharCode(aCharCode + x))
+    .map((x) => cosetShift(x))
+    .map((x) => String.fromCharCode(aCharCode + x))
     .join("");
   const plainText = decrypt(cipherText, key);
   return { key, plainText };
