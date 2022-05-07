@@ -6,6 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "npx prettier@latest --write 'src' 'tests'",
     "test": "npm run test:unit && npm run test:e2e",
     "test:e2e": "playwright test tests/e2e",
     "test:unit": "tsc --outDir dist src/lib/*.ts && jest tests/unit"
