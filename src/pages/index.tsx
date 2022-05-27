@@ -4,7 +4,7 @@ import { Cipher } from "../features/cipher";
 
 const Home: NextPage = () => {
   return (
-    <div style={{ maxWidth: "40rem" }} className="p-3 mx-auto">
+    <div className="p-3 mx-auto w-page">
       <Head>
         <title>Vigenère Cipher</title>
         <meta
