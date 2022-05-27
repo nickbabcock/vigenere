@@ -1,4 +1,5 @@
-const {
+import { test, expect } from "vitest";
+import {
   coincidenceIndex,
   cosetShift,
   cosets,
@@ -8,7 +9,7 @@ const {
   encrypt,
   decrypt,
   zip,
-} = require("../../dist/vigenere-cipher");
+} from "../../src/lib/vigenere-cipher";
 
 test("zip", () => {
   expect(zip(["a"], ["b"])).toStrictEqual([["a", "b"]]);

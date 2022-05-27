@@ -9,7 +9,7 @@
     "format": "npx prettier@latest --write 'src' 'tests'",
     "test": "npm run test:unit && npm run test:e2e",
     "test:e2e": "playwright test tests/e2e",
-    "test:unit": "tsc --outDir dist src/lib/*.ts && jest tests/unit"
+    "test:unit": "tsc && vitest tests/unit"
   },
   "eslintConfig": {
     "extends": "next/core-web-vitals"
@@ -26,7 +26,7 @@
     "@types/react": "18.0.9",
     "eslint": "8.16.0",
     "eslint-config-next": "12.1.6",
-    "jest": "^28.1.0",
-    "typescript": "4.7.2"
+    "typescript": "4.7.2",
+    "vitest": "^0.12.9"
   }
 }
