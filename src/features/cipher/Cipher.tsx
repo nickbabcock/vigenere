@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { decrypt, encrypt, recoverVigenere } from "../../lib/vigenere-cipher";
 import { Crypt } from "./types";
-import styles from "./cipher.module.css";
 
 const keyText = (mode: Crypt["kind"]) => {
   switch (mode) {
@@ -53,8 +52,8 @@ export const Cipher = () => {
 
   return (
     <>
-      <div className={styles["controls"]}>
-        <div className={styles["row-gap"]}>
+      <div className="flex flex-col gap-2">
+        <div className="flex gap-2 align-baseline">
           <label htmlFor="cryptMode">Cryptographic mode:</label>
           <select id="cryptMode" value={mode} onChange={modeChange}>
             <option value="Encryption">Encryption</option>
@@ -64,7 +63,7 @@ export const Cipher = () => {
         </div>
 
         <div>
-          <label htmlFor="valueText" className={styles["block-label"]}>
+          <label htmlFor="valueText" className="block">
             {keyText(mode)}:
           </label>
           <input
@@ -75,13 +74,13 @@ export const Cipher = () => {
         </div>
 
         <div>
-          <label htmlFor="inputText" className={styles["block-label"]}>
+          <label htmlFor="inputText" className="block">
             Plain / Cipher text:
           </label>
           <textarea
             id="inputText"
             value={input}
-            className={styles["input-text"]}
+            className="width-full min-h-12"
             onChange={(e) => setInput(e.target.value)}
           />
         </div>

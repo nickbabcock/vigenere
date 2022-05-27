@@ -1,38 +1,44 @@
+:root {
+  --surface-1-h: var(--gray-0-h);
+  --surface-1-s: var(--gray-0-s);
+  --surface-1-l: var(--gray-0-l);
+  --surface-1-hsl: var(--surface-1-h) var(--surface-1-s) var(--surface-1-l);
+  --surface-1: hsl(var(--surface-1-hsl));
+  --surface-1-l-contrast: 0.3;
+  --text-1: hsl(var(--gray-9-hsl));
+}
+
+html {
+  background-color: var(--surface-1);
+  color: var(--text-1);
+}
+
+button,
+input,
+select,
+textarea,
+option {
+  background-color: hsl(
+    var(--surface-1-h),
+    var(--surface-1-s),
+    calc(var(--surface-1-l) + var(--surface-1-l) * var(--surface-1-l-contrast))
+  );
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-clr-h: 0;
-    --background-clr-s: 0%;
-    --background-clr-l: 7%;
-    --background-clr: hsl(
-      var(--background-clr-h),
-      var(--background-clr-s),
-      var(--background-clr-l)
-    );
-    --foreground-clr: hsl(0, 0%, 100%);
+    --surface-1-h: var(--gray-9-h);
+    --surface-1-s: var(--gray-9-s);
+    --surface-1-l: var(--gray-9-l);
+    --surface-1-l-contrast: -0.3;
+    --text-1: hsl(var(--gray-0-hsl));
   }
 
-  /* Remove once supported by firefox */
-  @supports not (color-scheme: dark) {
-    html {
-      background-color: var(--background-clr);
-      color: var(--foreground-clr);
-    }
-
-    a {
-      color: rgb(158, 158, 255);
-    }
-
-    a:active {
-      color: rgb(255, 158, 158);
-    }
+  a {
+    color: rgb(158, 158, 255);
   }
 
-  /* Remove once chromium browsers stop filling option background as white */
-  option {
-    background-color: hsl(
-      var(--background-clr-h),
-      var(--background-clr-s),
-      calc(var(--background-clr-l) + 15%)
-    );
+  a:active {
+    color: rgb(255, 158, 158);
   }
 }

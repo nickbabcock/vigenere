@@ -1,0 +1,32 @@
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.align-baseline {
+  align-items: baseline;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.gap-2 {
+  gap: var(--size-2);
+}
+
+.p-3 {
+  padding: var(--size-3);
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}

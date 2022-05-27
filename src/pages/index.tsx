@@ -1,11 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Cipher } from "../features/cipher";
-import styles from "../styles/index.module.css";
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.content}>
+    <div style={{ maxWidth: "40rem" }} className="p-3 mx-auto">
       <Head>
         <title>Vigenère Cipher</title>
         <meta
