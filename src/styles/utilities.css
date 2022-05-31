@@ -24,6 +24,10 @@
   box-shadow: var(--shadow-3);
 }
 
+.descendents\:pointer-events-none * {
+  pointer-events: none;
+}
+
 @media (min-width: 360px) {
   .xs\:grid {
     display: grid;

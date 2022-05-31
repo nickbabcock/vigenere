@@ -17,7 +17,7 @@ export const Card = ({
     <button
       className={`max-w-14 h-full flex flex-col gap-2 bg-surface-2 p-5 rounded-xl border-0 drop-shadow-1 hover:drop-shadow-3 focus-visible:drop-shadow-3 transition-shadow transition-opacity ${
         !selected
-          ? "opacity-50 hover:opacity-70 focus-visible:opacity-70 select-none cursor-pointer"
+          ? "opacity-50 hover:opacity-70 focus-visible:opacity-70 select-none cursor-pointer descendents:pointer-events-none"
           : "select-text"
       }`}
       onClick={onClick}
