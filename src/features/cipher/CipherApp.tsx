@@ -65,7 +65,7 @@ export const CipherApp = () => {
               the index of the next letter in the cipher key appears in the
               alphabet.
             </p>
-            <div className="flex flex-col xs:grid grid-cols-2 w-full align-baseline">
+            <div className="flex flex-col xs:grid grid-cols-2 w-full align-center">
               <label htmlFor={`${id}-enc`} className="block font-semibold">
                 Cipher Key:
               </label>
@@ -97,7 +97,7 @@ export const CipherApp = () => {
               Reverses encryption by shifting input letters to the left to
               recover the plaintext.
             </p>
-            <div className="flex flex-col xs:grid grid-cols-2 w-full align-baseline">
+            <div className="flex flex-col xs:grid grid-cols-2 w-full align-center">
               <label htmlFor={`${id}-dec`} className="block font-semibold">
                 Cipher Key:
               </label>
@@ -130,7 +130,7 @@ export const CipherApp = () => {
               outputs plaintext with letters that occur at the same frequency as
               English text.
             </p>
-            <div className="flex flex-col xs:grid grid-cols-2 w-full align-baseline">
+            <div className="flex flex-col xs:grid grid-cols-2 w-full align-center">
               <label htmlFor={`${id}-freq`} className="block font-semibold">
                 Max Key Length:
               </label>

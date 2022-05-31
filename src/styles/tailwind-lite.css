@@ -26,8 +26,8 @@
   flex-direction: column;
 }
 
-.align-baseline {
-  align-items: baseline;
+.align-center {
+  align-items: center;
 }
 
 .grow {
