@@ -1,6 +1,6 @@
 # Vigenère Cipher
 
-The [Vigenère Cipher](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) is a slightly more complex version of the [Caesar Cipher](https://en.wikipedia.org/wiki/Caesar_cipher), where instead of rotating plaintext by a single letter, Vigenère allows rotation by words. Despite the increase in intricacy, both Vigenère and Caesar ciphers are susceptible to frequency analysis. One can recover the plaintext and the key given sufficiently long enough ciphertext due to inherent patterns in english text. [Dr. C.-K. Shene breaks down how this method works](https://pages.mtu.edu/~shene/NSF-4/Tutorial/index.html).
+The [Vigenère Cipher](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) is a slightly more complex version of the [Caesar Cipher](https://en.wikipedia.org/wiki/Caesar_cipher), where instead of rotating plaintext by a single letter, Vigenère allows rotation by words. Despite the increase in intricacy, both Vigenère and Caesar ciphers are susceptible to frequency analysis. One can recover the plaintext and the key given sufficiently long ciphertext due to inherent patterns in english text. [Dr. C.-K. Shene breaks down how this method works](https://pages.mtu.edu/~shene/NSF-4/Tutorial/index.html).
 
 This repo is a [hosted web page](https://vigenere.nickb.dev) that allows one to play with encryption, decryption, and recovery of Vigenère ciphers.
 
