@@ -9,12 +9,13 @@
     "format": "npx prettier@latest --write 'src' 'tests'",
     "test": "npm run test:unit && npm run test:e2e",
     "test:e2e": "playwright test tests/e2e",
-    "test:unit": "tsc && vitest tests/unit"
+    "test:unit": "tsc && vitest run tests/unit"
   },
   "eslintConfig": {
     "extends": "next/core-web-vitals"
   },
   "dependencies": {
+    "comlink": "^4.3.1",
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",

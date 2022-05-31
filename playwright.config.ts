@@ -1,7 +1,7 @@
 import { PlaywrightTestConfig } from "@playwright/test";
 const config: PlaywrightTestConfig = {
   webServer: {
-    command: "npm run dev",
+    command: "npm run build && npm run start",
     port: 3000,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,

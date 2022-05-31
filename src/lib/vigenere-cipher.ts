@@ -14,8 +14,8 @@ export function rotate<T>(arr: T[], spots: number): T[] {
 }
 
 // Perform the vigenere cipher on given plaintext with a key
-export function encrypt(text: string, raw_key: string): string {
-  const key = raw_key.toUpperCase();
+export function encrypt(text: string, rawKey: string): string {
+  const key = rawKey.toUpperCase();
   let skipSpaces = 0;
   return text
     .toUpperCase()
@@ -34,8 +34,8 @@ export function encrypt(text: string, raw_key: string): string {
 }
 
 // Decrypt vigenere ciphertext with a given key
-export function decrypt(ciphertext: string, raw_key: string): string {
-  const key = raw_key.toUpperCase();
+export function decrypt(ciphertext: string, rawKey: string): string {
+  const key = rawKey.toUpperCase();
   let skipSpaces = 0;
   return ciphertext
     .toUpperCase()

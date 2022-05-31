@@ -6,5 +6,23 @@ export type Crypt =
       kind: "Decryption";
     }
   | {
-      kind: "Decryption with Key";
+      kind: "Frequency Analysis";
+    };
+
+export interface CipherKind {
+  kind: Crypt["kind"];
+  cipherKey?: string;
+  maxKeyLen?: number;
+  input?: string;
+}
+
+export type CipherOutputKind =
+  | {
+      kind: "Encryption" | "Decryption";
+      text: string;
+    }
+  | {
+      kind: "Frequency Analysis";
+      derivedKey: string;
+      text: string;
     };
