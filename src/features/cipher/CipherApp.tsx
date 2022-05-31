@@ -157,7 +157,7 @@ export const CipherApp = () => {
         </div>
       </div>
 
-      <div className="full-bleed flex flex-col lg:grid grid-cols-2 gap-3">
+      <div className="full-bleed grid grid-rows-2 lg:grid-rows-none lg:grid-cols-2 gap-3">
         <div className="flex flex-col">
           <h3 className="m-0">
             <label htmlFor={`${id}-input`}>Input</label>

@@ -14,6 +14,10 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.grid-rows-2 {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
 .flex {
   display: flex;
 }
@@ -138,4 +142,18 @@
 .hover\:opacity-70:hover,
 .focus-visible\:opacity-70:focus-visible {
   opacity: 70%;
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid {
+    display: grid;
+  }
+
+  .lg\:grid-rows-none {
+    grid-template-rows: none;
+  }
+
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
