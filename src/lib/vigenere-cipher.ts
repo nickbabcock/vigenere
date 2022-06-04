@@ -89,7 +89,7 @@ export function estimateKeyLength(cipherText: string, maxLen: number): number {
     return cis.reduce((a, b) => a + b, 0) / cis.length;
   });
 
-  return indices.indexOf(Math.max(...indices)) + 1;
+  return Math.max(indices.indexOf(Math.max(...indices)) + 1, 1);
 }
 
 // Computes the shift of a coset by finding the smallest chi-squared test

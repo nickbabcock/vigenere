@@ -95,6 +95,10 @@ test("estimateKeyLength", () => {
   ).toBe(8);
 });
 
+test("estimateKeyLength must not return zero", () => {
+  expect(estimateKeyLength("adsf", 15)).not.toBe(0);
+});
+
 test("cosetShift", () => {
   expect(cosetShift("WWBQCUOBSW".split(""))).toBe(14);
 });
@@ -110,4 +114,10 @@ test("recoverVigenere", () => {
     plainText:
       "DO YOU KNOW THE LAND WHERE THE ORANGE TREE BLOSSOMSTHECOUNTRYOFGOLDENFRUITSANDMARVELOUSROSESWHERETHEBREEZEISSOFTERANDBIRDSLIGHTERWHEREBEESGATHERPOLLENINEVERYSEASONANDWHERESHINESANDSMILESLIKEAGIFTFROMGODANETERNALSPRINGTIMEUNDERANEVERBLUESKYALASBUTICANNOTFOLLOWYOUTOTHATHAPPYSHOREFROMWHICHFATEHASEXILEDMETHEREITISTHERETHATISHOULDLIKETOLIVETOLOVETOLOVEANDTODIEITISTHERETHATISHOULDLIKETOLIVEITISTHEREYESTHERE",
   });
+});
+
+test("recoverVigenere throw", () => {
+  // this would throw if the key length estimation returned zero
+  recoverVigenere("adsf", 15);
+  expect(true).toBe(true);
 });
