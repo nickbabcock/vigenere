@@ -12,7 +12,7 @@ export const CipherOutput = React.memo(function CipherOutput({
     case undefined: {
       return (
         <>
-          <h3 className="m-0" data-test-id="output-title">
+          <h3 className="text-lg" data-test-id="output-title">
             Output
           </h3>
         </>
@@ -22,22 +22,20 @@ export const CipherOutput = React.memo(function CipherOutput({
     case "Encryption": {
       return (
         <>
-          <h3 className="m-0" data-test-id="output-title">
+          <h3 className="text-lg" data-test-id="output-title">
             Output
           </h3>
-          <p className="m-0" data-test-id="output-body">
-            {output.text}
-          </p>
+          <p data-test-id="output-body">{output.text}</p>
         </>
       );
     }
     case "Frequency Analysis": {
       return (
         <>
-          <h3 className="m-0" data-test-id="output-title">
+          <h3 className="text-lg" data-test-id="output-title">
             Output (Key: {output.derivedKey})
           </h3>
-          <p className="m-0" data-test-id="output-body">
+          <p className="text-lg" data-test-id="output-body">
             {output.text}
           </p>
         </>

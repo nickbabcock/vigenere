@@ -4,7 +4,7 @@ import { Cipher } from "../features/cipher";
 
 const Home: NextPage = () => {
   return (
-    <div className="grid-page p-3 gap-y-3 min-h-full">
+    <div className="flex flex-col p-3 gap-y-4 min-h-screen">
       <Head>
         <title>Vigenère Cipher</title>
         <meta
@@ -15,9 +15,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
-        <h1>Vigenère Cipher</h1>
-        <p>
+      <div className="max-w-prose mx-auto space-y-4">
+        <h1 className="text-2xl font-bold">Vigenère Cipher</h1>
+        <p className="text-lg">
           The{" "}
           <a href="https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher">
             Vigenère Cipher
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
           </a>
           .
         </p>
-        <p>
+        <p className="text-lg">
           Any code suggestions or issues can be{" "}
           <a href="https://github.com/nickbabcock/vigenere">raised on Github</a>
         </p>

@@ -15,7 +15,7 @@ export const Card = ({
 }: CardProps) => {
   return (
     <button
-      className={`max-w-14 h-full flex flex-col gap-2 bg-surface-2 p-5 rounded-xl border-0 drop-shadow-1 hover:drop-shadow-3 focus-visible:drop-shadow-3 transition-shadow transition-opacity ${
+      className={`max-w-xs h-full flex flex-col gap-2 bg-surface-2 p-5 rounded-xl bg-zinc-300 dark:bg-zinc-700 drop-shadow-md hover:drop-shadow-xl focus-visible:drop-shadow-xl transition-all ${
         !selected
           ? "opacity-50 hover:opacity-70 focus-visible:opacity-70 select-none cursor-pointer descendents:pointer-events-none"
           : "select-text"
@@ -24,7 +24,7 @@ export const Card = ({
       aria-label={ariaLabel}
       tabIndex={selected ? -1 : undefined}
     >
-      <h3 className="m-0">{title}</h3>
+      <h3 className="text-lg">{title}</h3>
       {children}
     </button>
   );

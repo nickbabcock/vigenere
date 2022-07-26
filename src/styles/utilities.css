@@ -1,35 +1,4 @@
 /* Tailwind-like classes that aren't actually in tailwind */
-.min-h-12 {
-  min-height: var(--size-12);
-}
-
-.max-w-14 {
-  max-width: var(--size-14);
-}
-
-.color-2 {
-  color: var(--text-2);
-}
-
-.bg-surface-2 {
-  background-color: var(--surface-2);
-}
-
-.drop-shadow-1 {
-  box-shadow: var(--shadow-1);
-}
-
-.hover\:drop-shadow-3:hover,
-.focus-visible\:drop-shadow-3:focus-visible {
-  box-shadow: var(--shadow-3);
-}
-
 .descendents\:pointer-events-none * {
   pointer-events: none;
-}
-
-@media (min-width: 360px) {
-  .xs\:grid {
-    display: grid;
-  }
 }
