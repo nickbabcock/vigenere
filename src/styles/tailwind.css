@@ -15,5 +15,5 @@ option {
 }
 
 body {
-  @apply bg-zinc-200 dark:bg-zinc-800;
+  @apply bg-zinc-200 text-slate-700 dark:bg-zinc-800 dark:text-slate-100;
 }
