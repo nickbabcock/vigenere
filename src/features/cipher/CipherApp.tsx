@@ -48,12 +48,12 @@ export const CipherApp = () => {
   return (
     <>
       <div className="my-4">
-        <div className="max-w-prose mx-auto mb-4">
+        <div className="mx-auto mb-4 max-w-prose">
           <h2 className="text-lg">
             Selected cryptographic mode: {mode.toLocaleLowerCase()}
           </h2>
         </div>
-        <div className="flex flex-col align-center w-fit mx-auto gap-3 lg:grid grid-cols-3">
+        <div className="align-center mx-auto flex w-fit grid-cols-3 flex-col gap-3 lg:grid">
           <Card
             title="Encryption"
             selected={mode === "Encryption"}
@@ -63,12 +63,12 @@ export const CipherApp = () => {
               setModeChanges((x) => x + 1);
             }}
           >
-            <p className="grow color-2 text-left">
+            <p className="color-2 grow text-left">
               Substitute letters of the input by shifting them to the right by
               the index of the next letter in the cipher key appears in the
               alphabet.
             </p>
-            <div className="grid grid-cols-2 w-full align-center">
+            <div className="align-center grid w-full grid-cols-2">
               <label htmlFor={`${id}-enc`} className="block font-semibold">
                 Cipher Key:
               </label>
@@ -77,7 +77,7 @@ export const CipherApp = () => {
                 ref={encryptionInputRef}
                 disabled={mode !== "Encryption"}
                 id={`${id}-enc`}
-                className="w-full p-1 border-2 border-gray-200 rounded dark:border-gray-600"
+                className="w-full rounded border-2 border-gray-200 p-1 dark:border-gray-600"
                 value={mode === "Encryption" ? state.mode.cipherKey : ""}
                 onChange={(e) => {
                   dispatch({ kind: "new-key", key: e.target.value });
@@ -96,11 +96,11 @@ export const CipherApp = () => {
               setModeChanges((x) => x + 1);
             }}
           >
-            <p className="grow color-2 text-left">
+            <p className="color-2 grow text-left">
               Reverses encryption by shifting input letters to the left to
               recover the plaintext.
             </p>
-            <div className="grid grid-cols-2 w-full align-center">
+            <div className="align-center grid w-full grid-cols-2">
               <label htmlFor={`${id}-dec`} className="block font-semibold">
                 Cipher Key:
               </label>
@@ -109,7 +109,7 @@ export const CipherApp = () => {
                 ref={decryptionInputRef}
                 disabled={mode !== "Decryption"}
                 id={`${id}-dec`}
-                className="w-full p-1 border-2 border-gray-200 rounded dark:border-gray-600"
+                className="w-full rounded border-2 border-gray-200 p-1 dark:border-gray-600"
                 value={mode === "Decryption" ? state.mode.cipherKey : ""}
                 onChange={(e) => {
                   dispatch({ kind: "new-key", key: e.target.value });
@@ -128,12 +128,12 @@ export const CipherApp = () => {
               setModeChanges((x) => x + 1);
             }}
           >
-            <p className="grow color-2 text-left">
+            <p className="color-2 grow text-left">
               Attempts to recover the cipher key of up to a given length that
               outputs plaintext with letters that occur at the same frequency as
               English text.
             </p>
-            <div className="grid grid-cols-2 w-full align-center">
+            <div className="align-center grid w-full grid-cols-2">
               <label htmlFor={`${id}-freq`} className="block font-semibold">
                 Max Key Length:
               </label>
@@ -142,7 +142,7 @@ export const CipherApp = () => {
                 name="max-key-length"
                 disabled={mode !== "Frequency Analysis"}
                 id={`${id}-freq`}
-                className="w-24 p-1 border-2 border-gray-200 rounded dark:border-gray-600"
+                className="w-24 rounded border-2 border-gray-200 p-1 dark:border-gray-600"
                 type="number"
                 min="1"
                 max="100"
@@ -160,7 +160,7 @@ export const CipherApp = () => {
         </div>
       </div>
 
-      <div className="full-bleed grid grid-rows-2 lg:grid-rows-none lg:grid-cols-2 gap-3 grow">
+      <div className="full-bleed grid grow grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-none">
         <div className="flex flex-col">
           <h3 className="text-lg">
             <label htmlFor={`${id}-input`}>Input</label>
@@ -169,7 +169,7 @@ export const CipherApp = () => {
             id={`${id}-input`}
             name="input"
             value={state.mode.input}
-            className={`${classes["cipher-input"]} w-full h-full min-h-12 p-1 border-2 border-gray-200 dark:border-gray-600`}
+            className={`${classes["cipher-input"]} min-h-12 h-full w-full border-2 border-gray-200 p-1 dark:border-gray-600`}
             onChange={(e) =>
               dispatch({ kind: "new-input", input: e.target.value })
             }

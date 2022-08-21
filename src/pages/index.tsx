@@ -4,7 +4,7 @@ import { Cipher } from "../features/cipher";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex flex-col p-3 gap-y-4 min-h-screen">
+    <div className="flex min-h-screen flex-col gap-y-4 p-3">
       <Head>
         <title>Vigenère Cipher</title>
         <meta
@@ -15,7 +15,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="max-w-prose mx-auto space-y-4">
+      <div className="mx-auto max-w-prose space-y-4">
         <h1 className="text-2xl font-bold">Vigenère Cipher</h1>
         <p className="text-lg">
           The{" "}
