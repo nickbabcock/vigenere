@@ -33,7 +33,7 @@
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "prettier": "2.8.7",
-    "prettier-plugin-tailwindcss": "0.2.4",
+    "prettier-plugin-tailwindcss": "0.2.7",
     "typescript": "5.0.3",
     "vitest": "0.29.2"
   }
