@@ -146,7 +146,7 @@ export interface VigenereRecovery {
 
 export function recoverVigenere(
   cipherText: string,
-  maxKeyLen: number
+  maxKeyLen: number,
 ): VigenereRecovery {
   const slim = cipherText.replace(/[^A-Za-z]/g, "");
   const keyLen = estimateKeyLength(slim, maxKeyLen);

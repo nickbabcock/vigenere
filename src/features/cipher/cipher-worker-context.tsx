@@ -21,7 +21,7 @@ interface CipherWorkerState {
 type ContextState = MutableRefObject<CipherWorkerState | undefined>;
 
 const CipherWorkerContext = React.createContext<ContextState | undefined>(
-  undefined
+  undefined,
 );
 
 interface CipherWorkerProviderProps {
@@ -99,7 +99,7 @@ export const useCipherWorker = () => {
         ...args: Parameters<RemoteObject<CipherWorker>["recoverVigenere"]>
       ) => getWorker().recoverVigenere(...args),
     }),
-    [getWorker]
+    [getWorker],
   );
 
   const calculateOutput = useMemo(
@@ -128,7 +128,7 @@ export const useCipherWorker = () => {
 
               const out = await worker.recoverVigenere(
                 mode.input,
-                mode.maxKeyLen
+                mode.maxKeyLen,
               );
 
               cb({
@@ -139,9 +139,9 @@ export const useCipherWorker = () => {
             }
           }
         },
-        200
+        200,
       ),
-    [worker]
+    [worker],
   );
 
   return useMemo(
@@ -149,6 +149,6 @@ export const useCipherWorker = () => {
       worker,
       calculateOutput,
     }),
-    [worker, calculateOutput]
+    [worker, calculateOutput],
   );
 };

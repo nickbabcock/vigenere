@@ -18,7 +18,7 @@ export const CipherApp = () => {
 
   useEffect(() => {
     calculateOutput(state.mode, (output) =>
-      dispatch({ kind: "new-output", output })
+      dispatch({ kind: "new-output", output }),
     );
   }, [state.mode, calculateOutput, dispatch]);
 

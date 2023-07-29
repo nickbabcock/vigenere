@@ -5,7 +5,7 @@ test("identity caesar", async ({ page, baseURL }) => {
   await page.locator('input[name="encryption-cipher-key"]').fill("a");
   await page.locator('textarea[name="input"]').fill("hello");
   await expect(page.locator("data-test-id=output-body")).toHaveText(
-    "hello".toUpperCase()
+    "hello".toUpperCase(),
   );
 });
 
@@ -14,7 +14,7 @@ test("encryption", async ({ page, baseURL }) => {
   await page.locator('input[name="encryption-cipher-key"]').fill("abc");
   await page.locator('textarea[name="input"]').fill("hello world");
   await expect(page.locator("data-test-id=output-body")).toHaveText(
-    "HFNLP YOSND"
+    "HFNLP YOSND",
   );
 });
 
@@ -26,7 +26,7 @@ test("encryption click label", async ({ page, baseURL }) => {
   await page.keyboard.type("abc");
   await page.locator('textarea[name="input"]').fill("hello world");
   await expect(page.locator("data-test-id=output-body")).toHaveText(
-    "HFNLP YOSND"
+    "HFNLP YOSND",
   );
 });
 
@@ -36,7 +36,7 @@ test("encryption click card", async ({ page, baseURL }) => {
   await page.keyboard.type("abc");
   await page.locator('textarea[name="input"]').fill("hello world");
   await expect(page.locator("data-test-id=output-body")).toHaveText(
-    "HFNLP YOSND"
+    "HFNLP YOSND",
   );
 });
 
@@ -46,7 +46,7 @@ test("decryption click card", async ({ page, baseURL }) => {
   await page.keyboard.type("abc");
   await page.locator('textarea[name="input"]').fill("HFNLP YOSND");
   await expect(page.locator("data-test-id=output-body")).toHaveText(
-    "HELLO WORLD"
+    "HELLO WORLD",
   );
 });
 
@@ -58,7 +58,7 @@ test("decryption click label", async ({ page, baseURL }) => {
   await page.keyboard.type("abc");
   await page.locator('textarea[name="input"]').fill("HFNLP YOSND");
   await expect(page.locator("data-test-id=output-body")).toHaveText(
-    "HELLO WORLD"
+    "HELLO WORLD",
   );
 });
 
@@ -68,7 +68,7 @@ test("decryption click input", async ({ page, baseURL }) => {
   await page.keyboard.type("abc");
   await page.locator('textarea[name="input"]').fill("HFNLP YOSND");
   await expect(page.locator("data-test-id=output-body")).toHaveText(
-    "HELLO WORLD"
+    "HELLO WORLD",
   );
 });
 
@@ -83,10 +83,10 @@ test("frequency-analysis click card", async ({ page, baseURL }) => {
   await page.keyboard.type("20");
   await page.locator('textarea[name="input"]').fill(frequencyAnalysisInput);
   await expect(page.locator("data-test-id=output-title")).toContainText(
-    "HELLOWORLD"
+    "HELLOWORLD",
   );
   await expect(page.locator("data-test-id=output-body")).toHaveText(
-    frequencyAnalysisOutput
+    frequencyAnalysisOutput,
   );
 });
 
@@ -96,10 +96,10 @@ test("frequency-analysis click label", async ({ page, baseURL }) => {
   await page.keyboard.type("20");
   await page.locator('textarea[name="input"]').fill(frequencyAnalysisInput);
   await expect(page.locator("data-test-id=output-title")).toContainText(
-    "HELLOWORLD"
+    "HELLOWORLD",
   );
   await expect(page.locator("data-test-id=output-body")).toHaveText(
-    frequencyAnalysisOutput
+    frequencyAnalysisOutput,
   );
 });
 
@@ -109,9 +109,9 @@ test("frequency-analysis click input", async ({ page, baseURL }) => {
   await page.keyboard.type("20");
   await page.locator('textarea[name="input"]').fill(frequencyAnalysisInput);
   await expect(page.locator("data-test-id=output-title")).toContainText(
-    "HELLOWORLD"
+    "HELLOWORLD",
   );
   await expect(page.locator("data-test-id=output-body")).toHaveText(
-    frequencyAnalysisOutput
+    frequencyAnalysisOutput,
   );
 });
