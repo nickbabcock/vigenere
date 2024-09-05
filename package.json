@@ -19,6 +19,9 @@
       "tailwindcss": {}
     }
   },
+  "prettier": {
+    "plugins": ["prettier-plugin-tailwindcss"]
+  },
   "dependencies": {
     "comlink": "4.4.1",
     "next": "14.2.3",

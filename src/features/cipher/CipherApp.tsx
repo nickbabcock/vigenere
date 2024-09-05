@@ -169,7 +169,7 @@ export const CipherApp = () => {
             id={`${id}-input`}
             name="input"
             value={state.mode.input}
-            className={`${classes["cipher-input"]} min-h-12 h-full w-full border-2 border-gray-200 p-1 dark:border-gray-600`}
+            className={`${classes["cipher-input"]} h-full min-h-12 w-full border-2 border-gray-200 p-1 dark:border-gray-600`}
             onChange={(e) =>
               dispatch({ kind: "new-input", input: e.target.value })
             }
