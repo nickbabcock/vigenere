@@ -1,84 +1,107 @@
-import { useReducer } from "react";
 import { CipherKind, CipherOutputKind, Crypt } from "./types";
+import { create } from "zustand";
+import { getWorker } from "./cipher-worker";
+import { queue } from "../../lib/queue";
+import { CipherWorker } from "./cipher-comlink";
 
-interface CipherState {
-  mode: CipherKind;
+type CipherState = CipherKind & {
+  autoFocusMode: Crypt["kind"] | "none";
   output?: CipherOutputKind;
-}
-
-type CipherAction =
-  | {
-      kind: "new-mode";
-      mode: Crypt["kind"];
-    }
-  | {
-      kind: "new-input";
-      input: string;
-    }
-  | {
-      kind: "new-key";
-      key: string;
-    }
-  | {
-      kind: "new-max-key";
-      maxKeyLen: number;
-    }
-  | {
-      kind: "new-output";
-      output: CipherOutputKind;
-    };
-
-function cipherReducer(state: CipherState, action: CipherAction): CipherState {
-  switch (action.kind) {
-    case "new-mode": {
-      return action.mode === state.mode.kind
-        ? state
-        : {
-            ...state,
-            mode: {
-              ...state.mode,
-              kind: action.mode,
-            },
-          };
-    }
-    case "new-input": {
-      return {
-        ...state,
-        mode: {
-          ...state.mode,
-          input: action.input,
-        },
-      };
-    }
-    case "new-key": {
-      return {
-        ...state,
-        mode: {
-          ...state.mode,
-          cipherKey: action.key,
-        },
-      };
-    }
-    case "new-max-key": {
-      return {
-        ...state,
-        mode: {
-          ...state.mode,
-          maxKeyLen: action.maxKeyLen,
-        },
-      };
-    }
-    case "new-output": {
-      return {
-        ...state,
-        output: action.output,
-      };
-    }
+  actions: {
+    calcOutput: () => Promise<void>,
+    newMode: (mode: Crypt["kind"]) => void,
+    newInput: (input: string) => void,
+    newKey: (key: string) => void,
+    newMaxKey: (maxKeyLen: number) => void,
   }
-}
-
-export const useCipherReducer = () => {
-  return useReducer(cipherReducer, {
-    mode: { kind: "Encryption", cipherKey: "" },
-  });
 };
+
+const encryptionQueue = queue({
+  work: (...args: Parameters<CipherWorker["encrypt"]>) =>
+    getWorker().encrypt(...args),
+});
+const decryptionQueue = queue({
+  work: (...args: Parameters<CipherWorker["decrypt"]>) =>
+    getWorker().decrypt(...args),
+});
+const recoverQueue = queue({
+  work: (...args: Parameters<CipherWorker["recoverVigenere"]>) =>
+    getWorker().recoverVigenere(...args),
+});
+
+export const useCipherStore = create<CipherState>()((set, get) => ({
+  kind: "Encryption",
+  cipherKey: "",
+  maxKeyLen: 10,
+  autoFocusMode: "none",
+  actions: {
+    calcOutput: async () => {
+      if (!get().input) {
+        return;
+      }
+
+      switch (get().kind) {
+        case "Encryption": {
+          const result = await encryptionQueue.run(
+            get().input ?? "",
+            get().cipherKey ?? "",
+          );
+          if (result.kind === "success") {
+            set({ output: { kind: "Encryption", text: result.data } });
+          }
+          break;
+        }
+        case "Decryption": {
+          const result = await decryptionQueue.run(
+            get().input ?? "",
+            get().cipherKey ?? "",
+          );
+          if (result.kind === "success") {
+            set({ output: { kind: "Decryption", text: result.data } });
+          }
+          break;
+        }
+        case "Frequency Analysis": {
+          const result = await recoverQueue.run(
+            get().input ?? "",
+            get().maxKeyLen ?? 10,
+          );
+          if (result.kind === "success") {
+            set({
+              output: {
+                kind: "Frequency Analysis",
+                derivedKey: result.data.key,
+                text: result.data.plainText,
+              },
+            });
+          }
+          break;
+        }
+      }
+    },
+
+
+    newMode: (mode: Crypt["kind"]) => {
+      set({
+        kind: mode,
+        autoFocusMode: mode,
+      })
+      get().actions.calcOutput()
+    },
+
+    newInput: async (input: string) => {
+      set(() => ({ input }));
+      get().actions.calcOutput()
+    },
+
+    newKey: (key: string) => {
+      set(() => ({ cipherKey: key }));
+      get().actions.calcOutput()
+    },
+
+    newMaxKey: (maxKeyLen: number) => {
+      set(() => ({ maxKeyLen }));
+      get().actions.calcOutput()
+    },
+  },
+}));

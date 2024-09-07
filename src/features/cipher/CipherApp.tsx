@@ -1,49 +1,14 @@
-import React, { useState } from "react";
-import { useEffect, useId, useRef } from "react";
+import React, { useId } from "react";
 import { Card } from "../../components/Card";
-import { useCipherReducer } from "./cipher-store";
-import { useCipherWorker } from "./cipher-worker-context";
 import { CipherOutput } from "./CipherOutput";
 import classes from "./CipherApp.module.css";
+import { useCipherStore } from "./cipher-store";
 
 export const CipherApp = () => {
-  const { calculateOutput } = useCipherWorker();
-  const [state, dispatch] = useCipherReducer();
-  const [modeChanges, setModeChanges] = useState(0);
+  const state = useCipherStore();
 
   const id = useId();
-  const encryptionInputRef = useRef<HTMLInputElement>(null);
-  const decryptionInputRef = useRef<HTMLInputElement>(null);
-  const freqInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    calculateOutput(state.mode, (output) =>
-      dispatch({ kind: "new-output", output }),
-    );
-  }, [state.mode, calculateOutput, dispatch]);
-
-  // When the mode changes, focus the input field within
-  useEffect(() => {
-    if (modeChanges <= 0) {
-      return;
-    }
-
-    switch (state.mode.kind) {
-      case "Encryption": {
-        encryptionInputRef.current?.focus();
-      }
-
-      case "Decryption": {
-        decryptionInputRef.current?.focus();
-      }
-
-      case "Frequency Analysis": {
-        freqInputRef.current?.focus();
-      }
-    }
-  }, [modeChanges, state.mode.kind]);
-
-  const mode = state.mode.kind;
+  const mode = state.kind;
 
   return (
     <>
@@ -58,10 +23,7 @@ export const CipherApp = () => {
             title="Encryption"
             selected={mode === "Encryption"}
             ariaLabel="Select encryption mode"
-            onClick={() => {
-              dispatch({ kind: "new-mode", mode: "Encryption" });
-              setModeChanges((x) => x + 1);
-            }}
+            onClick={() => state.actions.newMode("Encryption")}
           >
             <p className="color-2 grow text-left">
               Substitute letters of the input by shifting them to the right by
@@ -74,14 +36,13 @@ export const CipherApp = () => {
               </label>
               <input
                 name="encryption-cipher-key"
-                ref={encryptionInputRef}
+                key={mode}
+                autoFocus={state.autoFocusMode === "Encryption"}
                 disabled={mode !== "Encryption"}
                 id={`${id}-enc`}
                 className="w-full rounded border-2 border-gray-200 p-1 dark:border-gray-600"
-                value={mode === "Encryption" ? state.mode.cipherKey : ""}
-                onChange={(e) => {
-                  dispatch({ kind: "new-key", key: e.target.value });
-                }}
+                value={mode === "Encryption" ? state.cipherKey : ""}
+                onChange={(e) => state.actions.newKey(e.target.value)}
                 spellCheck="false"
               />
             </div>
@@ -91,10 +52,7 @@ export const CipherApp = () => {
             title="Decryption"
             selected={mode === "Decryption"}
             ariaLabel="Select decryption mode"
-            onClick={() => {
-              dispatch({ kind: "new-mode", mode: "Decryption" });
-              setModeChanges((x) => x + 1);
-            }}
+            onClick={() => state.actions.newMode("Decryption")}
           >
             <p className="color-2 grow text-left">
               Reverses encryption by shifting input letters to the left to
@@ -106,14 +64,13 @@ export const CipherApp = () => {
               </label>
               <input
                 name="decryption-cipher-key"
-                ref={decryptionInputRef}
+                key={mode}
+                autoFocus={state.autoFocusMode === "Decryption"}
                 disabled={mode !== "Decryption"}
                 id={`${id}-dec`}
                 className="w-full rounded border-2 border-gray-200 p-1 dark:border-gray-600"
-                value={mode === "Decryption" ? state.mode.cipherKey : ""}
-                onChange={(e) => {
-                  dispatch({ kind: "new-key", key: e.target.value });
-                }}
+                value={mode === "Decryption" ? state.cipherKey : ""}
+                onChange={(e) => state.actions.newKey(e.target.value)}
                 spellCheck="false"
               />
             </div>
@@ -123,10 +80,7 @@ export const CipherApp = () => {
             title="Frequency Analysis"
             ariaLabel="Select frequency analysis mode"
             selected={mode === "Frequency Analysis"}
-            onClick={() => {
-              dispatch({ kind: "new-mode", mode: "Frequency Analysis" });
-              setModeChanges((x) => x + 1);
-            }}
+            onClick={() => state.actions.newMode("Frequency Analysis")}
           >
             <p className="color-2 grow text-left">
               Attempts to recover the cipher key of up to a given length that
@@ -138,20 +92,20 @@ export const CipherApp = () => {
                 Max Key Length:
               </label>
               <input
-                ref={freqInputRef}
                 name="max-key-length"
+                key={mode}
+                autoFocus={state.autoFocusMode === "Frequency Analysis"}
                 disabled={mode !== "Frequency Analysis"}
                 id={`${id}-freq`}
                 className="w-24 rounded border-2 border-gray-200 p-1 dark:border-gray-600"
                 type="number"
+                required={mode === "Frequency Analysis"}
                 min="1"
                 max="100"
+                value={state.maxKeyLen}
                 onChange={(e) => {
                   if (e.target.validity.valid) {
-                    dispatch({
-                      kind: "new-max-key",
-                      maxKeyLen: +e.target.value,
-                    });
+                    state.actions.newMaxKey(e.target.valueAsNumber)
                   }
                 }}
               />
@@ -168,11 +122,9 @@ export const CipherApp = () => {
           <textarea
             id={`${id}-input`}
             name="input"
-            value={state.mode.input}
+            value={state.input}
             className={`${classes["cipher-input"]} h-full min-h-12 w-full border-2 border-gray-200 p-1 dark:border-gray-600`}
-            onChange={(e) =>
-              dispatch({ kind: "new-input", input: e.target.value })
-            }
+            onChange={(e) => state.actions.newInput(e.target.value)}
             spellCheck="false"
           />
         </div>
