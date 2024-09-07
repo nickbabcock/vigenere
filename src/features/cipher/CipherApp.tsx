@@ -18,7 +18,7 @@ export const CipherApp = () => {
             Selected cryptographic mode: {mode.toLocaleLowerCase()}
           </h2>
         </div>
-        <div className="align-center mx-auto flex w-fit grid-cols-3 flex-col gap-3 lg:grid">
+        <div className="align-center mx-auto flex w-fit grid-cols-3 flex-wrap justify-center gap-3 lg:grid">
           <Card
             title="Encryption"
             selected={mode === "Encryption"}
@@ -105,7 +105,7 @@ export const CipherApp = () => {
                 value={state.maxKeyLen ?? ""}
                 onChange={(e) => {
                   if (e.target.validity.valid) {
-                    state.actions.newMaxKey(e.target.valueAsNumber)
+                    state.actions.newMaxKey(e.target.valueAsNumber);
                   }
                 }}
               />

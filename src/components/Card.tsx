@@ -15,7 +15,7 @@ export const Card = ({
 }: CardProps) => {
   return (
     <button
-      className={`bg-surface-2 flex h-full max-w-xs flex-col gap-2 rounded-xl bg-zinc-300 p-5 drop-shadow-md transition-all hover:drop-shadow-xl focus-visible:drop-shadow-xl dark:bg-zinc-700 ${
+      className={`flex max-w-xs flex-col gap-2 rounded-xl bg-zinc-300 p-5 drop-shadow-md transition-all hover:drop-shadow-xl focus-visible:drop-shadow-xl dark:bg-zinc-700 ${
         !selected
           ? "descendents:pointer-events-none cursor-pointer select-none opacity-50 hover:opacity-70 focus-visible:opacity-70"
           : "select-text"

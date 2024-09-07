@@ -8,12 +8,12 @@ type CipherState = CipherKind & {
   autoFocusMode: Crypt["kind"] | "none";
   output?: CipherOutputKind;
   actions: {
-    calcOutput: () => Promise<void>,
-    newMode: (mode: Crypt["kind"]) => void,
-    newInput: (input: string) => void,
-    newKey: (key: string) => void,
-    newMaxKey: (maxKeyLen: number) => void,
-  }
+    calcOutput: () => Promise<void>;
+    newMode: (mode: Crypt["kind"]) => void;
+    newInput: (input: string) => void;
+    newKey: (key: string) => void;
+    newMaxKey: (maxKeyLen: number) => void;
+  };
 };
 
 const encryptionQueue = queue({
@@ -79,28 +79,27 @@ export const useCipherStore = create<CipherState>()((set, get) => ({
       }
     },
 
-
     newMode: (mode: Crypt["kind"]) => {
       set({
         kind: mode,
         autoFocusMode: mode,
-      })
-      get().actions.calcOutput()
+      });
+      get().actions.calcOutput();
     },
 
     newInput: async (input: string) => {
       set(() => ({ input }));
-      get().actions.calcOutput()
+      get().actions.calcOutput();
     },
 
     newKey: (key: string) => {
       set(() => ({ cipherKey: key }));
-      get().actions.calcOutput()
+      get().actions.calcOutput();
     },
 
     newMaxKey: (maxKeyLen: number) => {
       set(() => ({ maxKeyLen }));
-      get().actions.calcOutput()
+      get().actions.calcOutput();
     },
   },
 }));
