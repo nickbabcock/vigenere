@@ -1,13 +1,8 @@
 import React from "react";
-import { CipherOutputKind } from "./types";
+import { useCipherStore } from "./cipher-store";
 
-interface CipherOutputProps {
-  output?: CipherOutputKind;
-}
-
-export const CipherOutput = React.memo(function CipherOutput({
-  output,
-}: CipherOutputProps) {
+export function CipherOutput() {
+  const output = useCipherStore((s) => s.output);
   switch (output?.kind) {
     case undefined: {
       return (
@@ -42,4 +37,4 @@ export const CipherOutput = React.memo(function CipherOutput({
       );
     }
   }
-});
+}

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test("identity caesar", async ({ page, baseURL }) => {
   await page.goto(baseURL + "");
-  await page.locator('input[name="encryption-cipher-key"]').fill("a");
+  await page.locator('input[name="Encryption-cipher-key"]').fill("a");
   await page.locator('textarea[name="input"]').fill("hello");
   await expect(page.locator("data-test-id=output-body")).toHaveText(
     "hello".toUpperCase(),
@@ -11,7 +11,7 @@ test("identity caesar", async ({ page, baseURL }) => {
 
 test("encryption", async ({ page, baseURL }) => {
   await page.goto(baseURL + "");
-  await page.locator('input[name="encryption-cipher-key"]').fill("abc");
+  await page.locator('input[name="Encryption-cipher-key"]').fill("abc");
   await page.locator('textarea[name="input"]').fill("hello world");
   await expect(page.locator("data-test-id=output-body")).toHaveText(
     "HFNLP YOSND",
@@ -21,7 +21,7 @@ test("encryption", async ({ page, baseURL }) => {
 test("encryption click label", async ({ page, baseURL }) => {
   await page.goto(baseURL + "");
   await page
-    .locator('[aria-label="Select encryption mode"] >> text="Cipher Key:"')
+    .locator('[aria-label="Select Encryption mode"] >> text="Cipher Key:"')
     .click();
   await page.keyboard.type("abc");
   await page.locator('textarea[name="input"]').fill("hello world");
@@ -32,7 +32,7 @@ test("encryption click label", async ({ page, baseURL }) => {
 
 test("encryption click card", async ({ page, baseURL }) => {
   await page.goto(baseURL + "");
-  await page.locator('[aria-label="Select encryption mode"]').click();
+  await page.locator('[aria-label="Select Encryption mode"]').click();
   await page.keyboard.type("abc");
   await page.locator('textarea[name="input"]').fill("hello world");
   await expect(page.locator("data-test-id=output-body")).toHaveText(
@@ -42,7 +42,7 @@ test("encryption click card", async ({ page, baseURL }) => {
 
 test("decryption click card", async ({ page, baseURL }) => {
   await page.goto(baseURL + "");
-  await page.locator('[aria-label="Select decryption mode"]').click();
+  await page.locator('[aria-label="Select Decryption mode"]').click();
   await page.keyboard.type("abc");
   await page.locator('textarea[name="input"]').fill("HFNLP YOSND");
   await expect(page.locator("data-test-id=output-body")).toHaveText(
@@ -53,7 +53,7 @@ test("decryption click card", async ({ page, baseURL }) => {
 test("decryption click label", async ({ page, baseURL }) => {
   await page.goto(baseURL + "");
   await page
-    .locator('[aria-label="Select decryption mode"] >> text="Cipher Key:"')
+    .locator('[aria-label="Select Decryption mode"] >> text="Cipher Key:"')
     .click();
   await page.keyboard.type("abc");
   await page.locator('textarea[name="input"]').fill("HFNLP YOSND");
@@ -64,7 +64,7 @@ test("decryption click label", async ({ page, baseURL }) => {
 
 test("decryption click input", async ({ page, baseURL }) => {
   await page.goto(baseURL + "");
-  await page.locator('[name="decryption-cipher-key"]').click({ force: true });
+  await page.locator('[name="Decryption-cipher-key"]').click({ force: true });
   await page.keyboard.type("abc");
   await page.locator('textarea[name="input"]').fill("HFNLP YOSND");
   await expect(page.locator("data-test-id=output-body")).toHaveText(

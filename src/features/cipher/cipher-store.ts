@@ -35,36 +35,30 @@ export const useCipherStore = create<CipherState>()((set, get) => ({
   autoFocusMode: "none",
   actions: {
     calcOutput: async () => {
-      if (!get().input) {
+      const { cipherKey, input, maxKeyLen } = get();
+      if (!input) {
         return;
       }
 
       switch (get().kind) {
-        case "Encryption": {
-          const result = await encryptionQueue.run(
-            get().input ?? "",
-            get().cipherKey ?? "",
-          );
-          if (result.kind === "success") {
-            set({ output: { kind: "Encryption", text: result.data } });
-          }
-          break;
-        }
+        case "Encryption":
         case "Decryption": {
-          const result = await decryptionQueue.run(
-            get().input ?? "",
-            get().cipherKey ?? "",
-          );
+          if (!cipherKey) {
+            return;
+          }
+          const queue =
+            get().kind === "Encryption" ? encryptionQueue : decryptionQueue;
+          const result = await queue.run(input, cipherKey);
           if (result.kind === "success") {
             set({ output: { kind: "Decryption", text: result.data } });
           }
           break;
         }
         case "Frequency Analysis": {
-          const result = await recoverQueue.run(
-            get().input ?? "",
-            get().maxKeyLen ?? 10,
-          );
+          if (!maxKeyLen) {
+            return;
+          }
+          const result = await recoverQueue.run(input ?? "", maxKeyLen);
           if (result.kind === "success") {
             set({
               output: {
