@@ -32,7 +32,6 @@ const recoverQueue = queue({
 export const useCipherStore = create<CipherState>()((set, get) => ({
   kind: "Encryption",
   cipherKey: "",
-  maxKeyLen: 10,
   autoFocusMode: "none",
   actions: {
     calcOutput: async () => {

@@ -36,7 +36,7 @@ export const CipherApp = () => {
               </label>
               <input
                 name="encryption-cipher-key"
-                key={mode}
+                key={state.autoFocusMode}
                 autoFocus={state.autoFocusMode === "Encryption"}
                 disabled={mode !== "Encryption"}
                 id={`${id}-enc`}
@@ -64,7 +64,7 @@ export const CipherApp = () => {
               </label>
               <input
                 name="decryption-cipher-key"
-                key={mode}
+                key={state.autoFocusMode}
                 autoFocus={state.autoFocusMode === "Decryption"}
                 disabled={mode !== "Decryption"}
                 id={`${id}-dec`}
@@ -93,7 +93,7 @@ export const CipherApp = () => {
               </label>
               <input
                 name="max-key-length"
-                key={mode}
+                key={state.autoFocusMode}
                 autoFocus={state.autoFocusMode === "Frequency Analysis"}
                 disabled={mode !== "Frequency Analysis"}
                 id={`${id}-freq`}
@@ -102,7 +102,7 @@ export const CipherApp = () => {
                 required={mode === "Frequency Analysis"}
                 min="1"
                 max="100"
-                value={state.maxKeyLen}
+                value={state.maxKeyLen ?? ""}
                 onChange={(e) => {
                   if (e.target.validity.valid) {
                     state.actions.newMaxKey(e.target.valueAsNumber)
