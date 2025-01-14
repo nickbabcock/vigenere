@@ -25,12 +25,12 @@
     ]
   },
   "dependencies": {
-    "comlink": "4.4.1",
+    "comlink": "4.4.2",
     "next": "15.0.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "tailwindcss": "3.4.14",
-    "zustand": "5.0.1"
+    "tailwindcss": "3.4.17",
+    "zustand": "5.0.3"
   },
   "devDependencies": {
     "@playwright/test": "1.48.2",
@@ -38,9 +38,9 @@
     "@types/react": "18.3.12",
     "eslint": "8.57.0",
     "eslint-config-next": "15.0.2",
-    "prettier": "3.3.3",
-    "prettier-plugin-tailwindcss": "0.6.8",
+    "prettier": "3.4.2",
+    "prettier-plugin-tailwindcss": "0.6.9",
     "typescript": "5.6.3",
-    "vitest": "2.1.4"
+    "vitest": "2.1.8"
   }
 }
