@@ -40,7 +40,7 @@ function CryptCard({
           ref={encryptionRef}
           disabled={mode !== kind}
           id={id}
-          className="w-full rounded border-2 border-gray-200 p-1 dark:border-gray-600"
+          className="w-full rounded-sm border-2 border-gray-200 p-1 dark:border-gray-600"
           onChange={(e) => dispatch.newKey(e.target.value)}
           spellCheck="false"
         />
@@ -85,7 +85,7 @@ function FrequencyAnalysisCard() {
           ref={keyLenRef}
           disabled={mode !== "Frequency Analysis"}
           id={id}
-          className="w-24 rounded border-2 border-gray-200 p-1 dark:border-gray-600"
+          className="w-24 rounded-sm border-2 border-gray-200 p-1 dark:border-gray-600"
           type="number"
           required={mode === "Frequency Analysis"}
           placeholder="10"

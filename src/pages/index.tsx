@@ -6,7 +6,7 @@ import { GithubIcon } from "../components/GithubIcon";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col gap-y-4 px-3 pb-3 pt-8 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24">
+    <div className="flex min-h-screen flex-col gap-y-4 px-3 pt-8 pb-3 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24">
       <Head>
         <title>Vigenère Cipher</title>
         <meta
