@@ -27,7 +27,7 @@
   "dependencies": {
     "@tailwindcss/postcss": "4.1.10",
     "comlink": "4.4.2",
-    "next": "15.3.1",
+    "next": "15.5.7",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwindcss": "4.1.10",
@@ -38,7 +38,7 @@
     "@types/node": "22.15.21",
     "@types/react": "19.1.5",
     "eslint": "9.27.0",
-    "eslint-config-next": "15.3.1",
+    "eslint-config-next": "15.5.7",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.12",
     "typescript": "5.8.3",
