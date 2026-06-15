@@ -6,3 +6,23 @@ body {
 #__next {
   min-height: 100%;
 }
+
+/* Form controls — quiet by default, clear accent + ring on focus. */
+.field {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  border: 1px solid var(--color-line);
+  border-radius: 0.375rem;
+}
+.field::placeholder {
+  color: var(--color-soft);
+}
+.field:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+  border-color: var(--color-accent);
+}
+.field:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

@@ -6,46 +6,53 @@ import { GithubIcon } from "../components/GithubIcon";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col gap-y-4 px-3 pt-8 pb-3 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24">
+    <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-8 px-4 py-10 sm:py-14">
       <Head>
         <title>Vigenère Cipher</title>
         <meta
           name="description"
           content="Online encryption, decryption, and recovery of ciphertext with vigenere / caesar ciphers using frequency analysis"
         />
-        <meta name="color-scheme" content="dark light" />
+        <meta name="color-scheme" content="light dark" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="mx-auto max-w-prose space-y-4">
-        <div className="flex">
-          <h1 className="grow text-4xl font-extrabold">Vigenère Cipher</h1>
-          <Link href="https://github.com/nickbabcock/vigenere">
+      <header className="flex flex-col gap-4">
+        <div className="flex items-center justify-between gap-4">
+          <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+            Vigenère Cipher
+          </h1>
+          <Link
+            href="https://github.com/nickbabcock/vigenere"
+            aria-label="View source on GitHub"
+            className="shrink-0 rounded-md p-1.5 text-soft transition-colors hover:text-ink"
+          >
             <GithubIcon
-              className="h-8 w-8 dark:fill-white"
-              alt="XPick Github Repo"
+              className="h-6 w-6 fill-current"
+              alt="Vigenère GitHub repository"
             />
           </Link>
         </div>
-        <p className="text-lg">
+        <p className="max-w-prose leading-relaxed text-soft">
           The{" "}
           <a href="https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher">
             Vigenère Cipher
-          </a>
-          , encrypts text with an incrementing{" "}
-          <a href="https://en.wikipedia.org/wiki/Caesar_cipher">
-            Caesar Cipher
-          </a>
-          . One can leverage frequency analysis to recover the plaintext and the
-          key given sufficiently long ciphertext due to inherent patterns in
-          english text.{" "}
+          </a>{" "}
+          encrypts text with an incrementing{" "}
+          <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar Cipher</a>
+          . Given sufficiently long ciphertext, frequency analysis can recover
+          both the plaintext and the key by exploiting the inherent patterns of
+          English text.{" "}
           <a href="https://pages.mtu.edu/~shene/NSF-4/Tutorial/index.html">
             Dr. C.-K. Shene breaks down how this method works
           </a>
           .
         </p>
-      </div>
-      <Cipher />
+      </header>
+
+      <main className="flex grow flex-col">
+        <Cipher />
+      </main>
     </div>
   );
 };

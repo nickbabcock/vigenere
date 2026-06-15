@@ -15,16 +15,24 @@ export const Card = ({
 }: CardProps) => {
   return (
     <button
-      className={`flex max-w-xs flex-col gap-2 rounded-xl bg-zinc-300 p-5 drop-shadow-md transition-all hover:drop-shadow-xl focus-visible:drop-shadow-xl dark:bg-zinc-700 ${
-        !selected
-          ? "descendents:pointer-events-none cursor-pointer opacity-50 select-none hover:opacity-70 focus-visible:opacity-70"
-          : "select-text"
-      }`}
       onClick={onClick}
       aria-label={ariaLabel}
+      aria-pressed={selected}
       tabIndex={selected ? -1 : undefined}
+      className={`flex flex-1 flex-col gap-3 rounded-lg border bg-surface p-5 text-left transition-colors ${
+        selected
+          ? "border-accent ring-1 ring-accent select-text"
+          : "descendents:pointer-events-none cursor-pointer border-line select-none hover:border-soft"
+      }`}
     >
-      <h3 className="text-lg">{title}</h3>
+      <div className="flex items-center justify-between gap-2">
+        <h3 className="text-base font-semibold text-ink">{title}</h3>
+        <span
+          className={`text-xs font-medium ${selected ? "text-accent" : "text-soft"}`}
+        >
+          {selected ? "Active" : "Select"}
+        </span>
+      </div>
       {children}
     </button>
   );
