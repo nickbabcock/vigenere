@@ -1,17 +1,47 @@
 @import "tailwindcss";
 
-a {
-  @apply font-medium text-gray-700 underline hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200;
+/* Understated, accessible theme. One neutral palette that adapts to the
+   user's light/dark preference via light-dark(), with a single calm accent
+   reserved for selection and focus. */
+
+@theme {
+  --color-bg: light-dark(#fafaf9, #0b0b0d);
+  --color-surface: light-dark(#ffffff, #161619);
+  --color-raised: light-dark(#f4f4f5, #1e1e22);
+  --color-line: light-dark(#e3e3e6, #2c2c31);
+  --color-ink: light-dark(#1b1b1f, #f2f2f4);
+  --color-soft: light-dark(#55555f, #a6a6b0);
+  --color-accent: light-dark(#1d4ed8, #6fa1ff);
+
+  --font-mono:
+    ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
 }
 
-button,
-input,
-select,
-textarea,
-option {
-  @apply bg-zinc-100 dark:bg-zinc-900;
+:root {
+  color-scheme: light dark;
 }
 
 body {
-  @apply bg-zinc-200 text-slate-700 dark:bg-zinc-800 dark:text-slate-100;
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family:
+    system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Consistent, visible focus for every interactive element. */
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
 }

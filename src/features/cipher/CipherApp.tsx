@@ -1,7 +1,6 @@
 import React, { useCallback, useId } from "react";
 import { Card } from "../../components/Card";
 import { CipherOutput } from "./CipherOutput";
-import classes from "./CipherApp.module.css";
 import { useCipherStore } from "./cipher-store";
 import { CipherKind } from "./types";
 
@@ -30,9 +29,9 @@ function CryptCard({
       ariaLabel={`Select ${kind} mode`}
       onClick={() => dispatch.newMode(kind)}
     >
-      {children}
-      <div className="align-center grid w-full grid-cols-2">
-        <label htmlFor={id} className="block font-semibold">
+      <p className="grow text-sm leading-relaxed text-soft">{children}</p>
+      <div className="mt-auto">
+        <label htmlFor={id} className="mb-1 block text-sm font-medium text-ink">
           Cipher Key:
         </label>
         <input
@@ -40,7 +39,7 @@ function CryptCard({
           ref={encryptionRef}
           disabled={mode !== kind}
           id={id}
-          className="w-full rounded-sm border-2 border-gray-200 p-1 dark:border-gray-600"
+          className="field w-full px-2.5 py-1.5"
           onChange={(e) => dispatch.newKey(e.target.value)}
           spellCheck="false"
         />
@@ -72,12 +71,12 @@ function FrequencyAnalysisCard() {
       selected={mode === "Frequency Analysis"}
       onClick={() => dispatch.newMode("Frequency Analysis")}
     >
-      <p className="grow text-left">
+      <p className="grow text-sm leading-relaxed text-soft">
         Attempts to recover the cipher key of up to a given length that outputs
         plaintext with letters that occur at the same frequency as English text.
       </p>
-      <div className="align-center grid w-full grid-cols-2">
-        <label htmlFor={id} className="block font-semibold">
+      <div className="mt-auto">
+        <label htmlFor={id} className="mb-1 block text-sm font-medium text-ink">
           Max Key Length:
         </label>
         <input
@@ -85,7 +84,7 @@ function FrequencyAnalysisCard() {
           ref={keyLenRef}
           disabled={mode !== "Frequency Analysis"}
           id={id}
-          className="w-24 rounded-sm border-2 border-gray-200 p-1 dark:border-gray-600"
+          className="field w-24 px-2.5 py-1.5"
           type="number"
           required={mode === "Frequency Analysis"}
           placeholder="10"
@@ -105,8 +104,9 @@ function FrequencyAnalysisCard() {
 function CryptModeHeader() {
   const mode = useCipherStore((x) => x.kind);
   return (
-    <h2 className="text-lg">
-      Selected cryptographic mode: {mode.toLocaleLowerCase()}
+    <h2 className="text-sm text-soft">
+      Selected mode:{" "}
+      <span className="font-medium text-ink">{mode.toLocaleLowerCase()}</span>
     </h2>
   );
 }
@@ -116,40 +116,38 @@ export const CipherApp = () => {
   const id = useId();
 
   return (
-    <>
-      <div className="my-4">
-        <div className="mx-auto mb-4 max-w-prose">
-          <CryptModeHeader />
-        </div>
-        <div className="align-center mx-auto flex w-fit grid-cols-3 flex-wrap justify-center gap-3 lg:grid">
+    <div className="flex grow flex-col gap-8">
+      <section>
+        <CryptModeHeader />
+        <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <CryptCard kind="Encryption">
-            <p className="grow text-left">
-              Substitute letters of the input by shifting them to the right by
-              the index of the next letter in the cipher key appears in the
-              alphabet.
-            </p>
+            Substitute letters of the input by shifting them to the right by the
+            index of the next letter in the cipher key as it appears in the
+            alphabet.
           </CryptCard>
 
           <CryptCard kind="Decryption">
-            <p className="grow text-left">
-              Reverses encryption by shifting input letters to the left to
-              recover the plaintext.
-            </p>
+            Reverses encryption by shifting input letters to the left to recover
+            the plaintext.
           </CryptCard>
 
           <FrequencyAnalysisCard />
         </div>
-      </div>
+      </section>
 
-      <div className="full-bleed grid grow grid-rows-2 gap-3 lg:grid-cols-2 lg:grid-rows-none">
+      <section className="grid grow gap-4 lg:grid-cols-2">
         <div className="flex flex-col">
-          <h3 className="text-lg">
-            <label htmlFor={`${id}-input`}>Input</label>
-          </h3>
+          <label
+            htmlFor={`${id}-input`}
+            className="mb-1.5 text-sm font-medium text-ink"
+          >
+            Input
+          </label>
           <textarea
             id={`${id}-input`}
             name="input"
-            className={`${classes["cipher-input"]} h-full min-h-12 w-full border-2 border-gray-200 p-1 dark:border-gray-600`}
+            placeholder="Type or paste text to transform…"
+            className="field min-h-40 w-full grow resize-y p-3 font-mono text-sm leading-relaxed"
             onChange={(e) => dispatch.newInput(e.target.value)}
             spellCheck="false"
           />
@@ -157,7 +155,7 @@ export const CipherApp = () => {
         <div className="flex flex-col" data-test-id="output">
           <CipherOutput />
         </div>
-      </div>
-    </>
+      </section>
+    </div>
   );
 };
